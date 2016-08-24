@@ -56,7 +56,7 @@ if ! grep " $name " $HOSTS; then
   sudo sed -i '' -e "/^127.0.0.1[[:space:]]/s/$/ $name /" $HOSTS
 fi
 
-if ! grep "[$name]" $KNOWN_HOSTS; then
+if ! grep "\[$name\]" $KNOWN_HOSTS; then
   # Add VM to known hosts to prevent prompt later
   ssh-keyscan -p 2222 -f- >> $KNOWN_HOSTS << EOH
 127.0.0.1 $name
@@ -90,7 +90,7 @@ ssh -t $name "sudo sh -c \"echo '$user ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/
 ###########################################################
 
 # Required for cloning from github without prompt
-if ! ssh $name grep "[github.com]" $USER_KNOWN_HOSTS; then
+if ! ssh $name grep "\[github.com\]" $USER_KNOWN_HOSTS; then
   ssh $name "ssh-keyscan github.com >> $USER_KNOWN_HOSTS"
 fi
 
