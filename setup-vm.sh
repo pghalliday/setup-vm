@@ -56,8 +56,8 @@ if ! grep " $name " $HOSTS; then
   sudo sed -i '' -e "/^127.0.0.1[[:space:]]/s/$/ $name /" $HOSTS
 fi
 
+# Add VM to known hosts to prevent prompt later
 if ! grep "\[$name\]" $KNOWN_HOSTS; then
-  # Add VM to known hosts to prevent prompt later
   ssh-keyscan -p 2222 -f- >> $KNOWN_HOSTS << EOH
 127.0.0.1 $name
 EOH
